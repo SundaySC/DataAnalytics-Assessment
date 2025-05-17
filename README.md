@@ -1,7 +1,7 @@
 # DataAnalytics-Assessment
 This is the Cowrise SQL Proficiency Assessment. This evaluation measures my ability to work with relational databases by writing SQL queries to solve business problems. The assessment tests my knowledge of data retrieval, aggregation, joins, subqueries, and data manipulation across multiple tables.
 
-# Per-Question Explanations and Challenges
+# Question Explanations and Challenges
 # Q1. High-Value Customers with Multiple Products
 ## My Approach
 When tackling this problem, I first needed to understand what defines a "high-value customer" with multiple products. The key requirements were:
@@ -87,7 +87,7 @@ For this account inactivity alert task, I needed to identify accounts with no in
 -	Calculate days since the last transaction
 -	Filter for accounts with inactivity above a threshold
 3.	For accurate inactivity tracking: 
--	Used MAX(s.transaction_date) to find each account's most recent transaction
+-	Used MAX(DATE(s.transaction_date)) to find each account's most recent transaction and display it as only the date without the time
 -	Used DATEDIFF(CURDATE(), MAX(s.transaction_date)) to calculate days of inactivity
 -	Added condition s.confirmed_amount > 0 to focus only on inflow transactions
 -	Used a LEFT JOIN to ensure we include accounts with no transactions at all
