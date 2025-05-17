@@ -2,7 +2,7 @@
 This is the Cowrise SQL Proficiency Assessment. This evaluation measures my ability to work with relational databases by writing SQL queries to solve business problems. The assessment tests my knowledge of data retrieval, aggregation, joins, subqueries, and data manipulation across multiple tables.
 
 # Per-Question Explanations and Challenges
-# Q1.High-Value Customers with Multiple Products
+# Q1. High-Value Customers with Multiple Products
 ## My Approach
 When tackling this problem, I first needed to understand what defines a "high-value customer" with multiple products. The key requirements were:
 1.	Customers must have at least one funded savings plan AND one funded investment plan
@@ -35,7 +35,7 @@ I built the query by:
 -	The initial query had more columns than needed, which I trimmed to match requirements
 -	Focused on retrieving only the essential information while still maintaining the business value
 
-# Q2.Transaction Frequency Analysis - Approach and Challenges
+# Q2. Transaction Frequency Analysis
 ## My Approach
 For this transaction frequency analysis task, I needed to categorize customers based on their monthly transaction patterns. Here's how I approached it:
 1.	First, I identified the core requirements:
@@ -73,7 +73,7 @@ For this transaction frequency analysis task, I needed to categorize customers b
 -	Challenge: Using all historical data could skew results with inactive customers
 -	Solution: Added a 12-month lookback window to focus on recent activity patterns
 
-# Q3: Account Inactivity Alert - Approach and Challenges
+# Q3. Account Inactivity Alert
 ## My Approach
 For this account inactivity alert task, I needed to identify accounts with no inflow transactions for extended periods. Here's my approach:
 1.	First, I defined what "inactivity" means in this context: 
