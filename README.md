@@ -111,3 +111,49 @@ For this account inactivity alert task, I needed to identify accounts with no in
 5.	Identifying Account Types: 
 -	Challenge: Plans table uses boolean flags rather than a simple type field
 -	Solution: Created a CASE statement to translate these flags into readable account types in the results
+
+# Q4. Customer Lifetime Value (CLV) Estimation - Approach and Challenges
+## My Approach
+For this CLV estimation task, I needed to create a model that calculates a customer's potential future value based on their transaction history and tenure. Here's my approach:
+1.	First, I understood the CLV formula requirements: 
+-	CLV = (total_transactions / tenure) * 12 * avg_profit_per_transaction
+-	Profit per transaction = 0.1% of transaction value
+-	Needed to account for amounts being in kobo (1/100 of the currency unit)
+2.	I structured the query to gather the necessary components: 
+-	Used CONCAT to properly format customer names
+-	Used TIMESTAMPDIFF to calculate tenure in months since signup
+-	Counted transactions and summed transaction values
+-	Applied the CLV formula with proper currency conversion
+3.	For accurate calculations: 
+-	Filtered for only successful transactions
+-	Only included positive value transactions (inflows)
+-	Ensured tenure was at least 1 month to avoid division by zero errors
+-	Used FORMAT to display the final CLV with 2 decimal places
+-	Created a separate calculation in the ORDER BY clause to ensure proper numeric sorting
+4.	For data preparation: 
+-	Joined users and transactions tables
+-	Used GROUP BY to aggregate at the customer level
+-	Included all necessary fields for calculation in the GROUP BY
+## Challenges I Encountered
+1.	Currency Conversion: 
+-	Challenge: The hint mentioned that amounts are stored in kobo (1/100 of the currency unit)
+-	Solution: Added a conversion factor of dividing by 100 in the calculation to convert to the main currency unit
+2.	Handling the CLV Formula: 
+-	Challenge: The CLV formula required multiple aggregations and calculations
+-	Solution: Broke down the calculation into logical components: 
+--	Monthly transaction rate = total_transactions / tenure
+--	Annual transaction rate = monthly rate * 12
+--	Average profit per transaction = (sum of transaction values * 0.1%) / total transactions
+--	Combined these components for the final CLV
+3.	Ensuring Proper Sorting: 
+-	Challenge: Using FORMAT() to display currency with two decimal places made sorting difficult
+-	Solution: Created a duplicate calculation in the ORDER BY clause without the FORMAT function to ensure proper numeric ordering
+4.	Avoiding Division by Zero: 
+-	Challenge: New customers might have tenure close to zero months
+-	Solution: Added a WHERE condition to only include customers with at least 1 month of tenure
+5.	Name Formatting: 
+-	Challenge: Needed to combine first and last names for the output
+-	Solution: Used CONCAT() with appropriate spacing between names
+6.	Transaction Filtering: 
+-	Challenge: Needed to exclude failed transactions and non-deposit activities
+-	Solution: Added conditions for successful transactions and positive amounts
