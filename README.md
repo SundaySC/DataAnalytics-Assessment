@@ -23,7 +23,7 @@ o	The multi-table structure required careful analysis to determine how plans rel
 o	I needed to understand which fields indicated savings vs. investment plans
 o	Solution: Used the is_regular_savings and is_fixed_investment flags to categorize plans
 2.	Handling Name Concatenation:
-o	Initially used the name field, but had to switch to combining first_name and last_name
+o	Initially used the name field but it displayed null values, but had to switch to combining first_name and last_name
 o	This required updating both the SELECT clause AND the GROUP BY clause
 o	Solution: Used CONCAT function to properly combine the name fields with appropriate spacing
 3.	Ensuring Data Quality:
