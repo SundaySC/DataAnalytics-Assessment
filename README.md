@@ -141,10 +141,10 @@ For this CLV estimation task, I needed to create a model that calculates a custo
 2.	Handling the CLV Formula: 
 -	Challenge: The CLV formula required multiple aggregations and calculations
 -	Solution: Broke down the calculation into logical components: 
---	Monthly transaction rate = total_transactions / tenure
---	Annual transaction rate = monthly rate * 12
---	Average profit per transaction = (sum of transaction values * 0.1%) / total transactions
---	Combined these components for the final CLV
+	- Monthly transaction rate = total_transactions / tenure
+	- Annual transaction rate = monthly rate * 12
+	- Average profit per transaction = (sum of transaction values * 0.1%) / total transactions
+	- Combined these components for the final CLV
 3.	Ensuring Proper Sorting: 
 -	Challenge: Using FORMAT() to display currency with two decimal places made sorting difficult
 -	Solution: Created a duplicate calculation in the ORDER BY clause without the FORMAT function to ensure proper numeric ordering
