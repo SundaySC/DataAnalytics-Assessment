@@ -112,7 +112,7 @@ For this account inactivity alert task, I needed to identify accounts with no in
 -	Challenge: Plans table uses boolean flags rather than a simple type field
 -	Solution: Created a CASE statement to translate these flags into readable account types in the results
 
-# Q4. Customer Lifetime Value (CLV) Estimation - Approach and Challenges
+# Q4. Customer Lifetime Value (CLV) Estimation
 ## My Approach
 For this CLV estimation task, I needed to create a model that calculates a customer's potential future value based on their transaction history and tenure. Here's my approach:
 1.	First, I understood the CLV formula requirements: 
