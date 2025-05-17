@@ -34,7 +34,6 @@ I built the query by:
 4.	Optimizing the Query:
 -	The initial query had more columns than needed, which I trimmed to match requirements
 -	Focused on retrieving only the essential information while still maintaining the business value
-By applying these approaches, I created a solution that directly addresses the business need to identify cross-selling opportunities with high-value customers who trust the institution 
 
 # Q2.Transaction Frequency Analysis - Approach and Challenges
 ## My Approach
@@ -73,4 +72,42 @@ For this transaction frequency analysis task, I needed to categorize customers b
 5.	Time Period Consideration:
 -	Challenge: Using all historical data could skew results with inactive customers
 -	Solution: Added a 12-month lookback window to focus on recent activity patterns
-This approach allowed me to create a clean segmentation that accurately reflects customer transaction behavior in a format that's immediately useful for business analysis and strategic planning.
+
+# Q3: Account Inactivity Alert - Approach and Challenges
+## My Approach
+For this account inactivity alert task, I needed to identify accounts with no inflow transactions for extended periods. Here's my approach:
+1.	First, I defined what "inactivity" means in this context: 
+-	No inflow transactions (deposits) for a specified period
+-	Need to track the most recent transaction date for each account
+-	Calculate the inactivity period in days
+2.	I structured the query to: 
+-	Join the plans and savings accounts tables
+-	Filter for only active accounts (not deleted or archived)
+-	Find the most recent transaction date for each plan
+-	Calculate days since the last transaction
+-	Filter for accounts with inactivity above a threshold
+3.	For accurate inactivity tracking: 
+-	Used MAX(s.transaction_date) to find each account's most recent transaction
+-	Used DATEDIFF(CURDATE(), MAX(s.transaction_date)) to calculate days of inactivity
+-	Added condition s.confirmed_amount > 0 to focus only on inflow transactions
+-	Used a LEFT JOIN to ensure we include accounts with no transactions at all
+4.	For proper account selection: 
+-	Included a plan type identifier using a CASE statement
+-	Filtered to include only savings and investment accounts
+-	Added a HAVING clause to filter based on inactivity days
+## Challenges I Encountered
+1.	Defining "Inactivity" Appropriately: 
+-	Challenge: The task required identifying accounts with "no inflow transactions," which meant I needed to distinguish between inflows and other transaction types
+-	Solution: Added a condition in the JOIN clause (s.confirmed_amount > 0) to focus only on positive value transactions
+2.	Handling Accounts with No Transactions: 
+-	Challenge: Accounts with no transaction history would return NULL for last_transaction_date
+-	Solution: Modified the HAVING clause to include OR last_transaction_date IS NULL to capture these accounts
+3.	Selecting the Appropriate Inactivity Threshold: 
+-	Challenge: The example showed an account with 92 days of inactivity, but the requirements mentioned 365 days
+-	Solution: Made the query flexible by using a threshold of 90 days, which matches the example while still allowing for identifying more critical cases with longer inactivity
+4.	Determining Account Status: 
+-	Challenge: Needed to exclude archived or deleted accounts to avoid generating alerts for intentionally dormant accounts
+-	Solution: Added WHERE conditions to filter for is_deleted = 0 and is_archived = 0
+5.	Identifying Account Types: 
+-	Challenge: Plans table uses boolean flags rather than a simple type field
+-	Solution: Created a CASE statement to translate these flags into readable account types in the results
